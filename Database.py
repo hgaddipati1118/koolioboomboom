@@ -12,10 +12,11 @@ def makeTables():
   Database = cursor.execute("SELECT teamName, userId FROM users").fetchall()
  
   if(len(Database)>0):
+    cursor.execute('DELETE FROM games;',);
     conn.commit()
     conn.close()
     return
-  cursor.execute('DELETE FROM games;',);
+ 
   cursor.execute('DELETE FROM users;',);
   #cursor.execute("CREATE TABLE users (teamName TEXT, userId INTEGER)")
  # cursor.execute("CREATE TABLE games (channelId INTEGER, player1 INTEGER, player2 INTEGER, gameId INTEGER, runs INTEGER, bowlerNumber INTEGER, userTurn INTEGER, currentInningsWickets INTEGER, inning1Score INTEGER, inning1Result TEXT, balls INTEGER, innings INTEGER, gameHappening INTEGER, coinToss INTEGER, tossDecision INTEGER, team1 TEXT, team2 TEXT )")
@@ -36,7 +37,7 @@ def makeTables():
   cursor.execute("INSERT INTO users VALUES ('DELHI DAREDEVILS',756157157501567118)")
   cursor.execute("INSERT INTO users VALUES ('Canadian Cricket Cowboys',636749752683200523)")
   cursor.execute("INSERT INTO users VALUES ('Pakistani Falcons',293778672807182336)")
-  cursor.execute("INSERT INTO users VALUES ('Souf CC',237234603981537280)")
+  cursor.execute("INSERT INTO users VALUES ('Tallinn Tall Estonians',237234603981537280)")
   cursor.execute("INSERT INTO users VALUES ('C0ldspark',195544830481268736)")
   cursor.execute("INSERT INTO users VALUES ('Calypso Kings',716465822020665405)")
   cursor.execute("INSERT INTO users VALUES ('New Delhi Superstars',306609698340339714)")

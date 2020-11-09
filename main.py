@@ -368,7 +368,7 @@ async def on_message(message):
 				output = "waiting on <@!" + str(currentGame.player2) + ">	to dm bot bowler number"
 				await message.channel.send(output)
 			if currentGame.userTurn == 1:
-				output = "waiting on <@!" + str(currentGame.player2) + "> to put swing number"
+				output = "waiting on <@!" + str(currentGame.player1) + "> to put swing number"
 				await message.channel.send(output)
 			return
 	isInGame = False
@@ -614,7 +614,7 @@ async def on_message(message):
 				print(currentGame.balls)
 				currentScore += "\n" + "Required Run Rate:" + str(
 				    round(
-				        6 * (1 + currentGame.inning1Score - runs)(60 - currentGame.balls), 2))
+				        6 * (1 + currentGame.inning1Score - runs)/(60 - currentGame.balls), 2))
 			await message.channel.send(currentScore)
 
 			if (currentGame.innings == 1):
