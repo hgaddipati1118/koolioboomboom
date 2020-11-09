@@ -358,6 +358,7 @@ async def on_message(message):
 			isInGame = True
 			currentGameId = n
 	currentGame = games[currentGameId]
+
 	if isInGame == True:
 		if "?waitingon" in message.content:
 	
@@ -376,12 +377,27 @@ async def on_message(message):
 		    or message.author.id == games[n].player2):
 			isInGame = True
 			currentGameId = n
-
+	if currentGameId == -1:
+		print("No game")
+	
 
 	currentGame = games[currentGameId]
 	print("hi")
 	
 	if "print game data" in message.content:
+		isInGame2 = False
+		currentGameId2 = -1
+
+		for n in range(len(games)):
+			print(n)
+			print(games[n].channelId)
+			if (message.channel.id == games[n].channelId):
+				isInGame2 = True
+				currentGameId2 = n
+		if(isInGame2 == False):
+				await message.channel.send("No game available")
+				return
+		currentGame = games[currentGameId2]
 		dump = [
 		    currentGame.channelId, currentGame.player1, currentGame.player2,
 		    currentGame.gameId, currentGame.runs, currentGame.bowlerNumber,
@@ -394,30 +410,41 @@ async def on_message(message):
 		return	
 	if "?edit game data" in message.content:
 		if isMod == True:
+			isInGame2 = False
+			currentGameId2 = -1
+
+			for n in range(len(games)):
+				print(n)
+				print(games[n].channelId)
+				if (message.channel.id == games[n].channelId):
+					isInGame2 = True
+					currentGameId2 = n
+			if(isInGame2 == False):
+					await message.channel.send("No game available")
+					return
+			currentGame = games[currentGameId2]
 			text = message.content
 			text = text.replace("?edit game data", "")
 			gameDataInput = text.split(',')
 			dump = Game(
-		    int(gameDataInput[0]), gameDataInput[15], gameDataInput[16],
+	    	int(gameDataInput[0]), gameDataInput[15], gameDataInput[16],
 		    int(gameDataInput[1]), int(gameDataInput[2]), int(gameDataInput[3]))
 			dump.runs = int(gameDataInput[4])
 			dump.bowlerNumber = int(gameDataInput[5])
 			dump.userTurn = int(gameDataInput[6])
-			dump.currentInningWickets = int(gameDataInput[7])
+			dump.currentInningWickets = int(gameDataInput[7])	
 			dump.inning1Score = int(gameDataInput[8])
 			dump.inning1Result = gameDataInput[9]
 			dump.balls = int(gameDataInput[10])
-			dump.innings = int(gameDataInput[11])
-
+			dump.innings = int(gameDataInput[11])				
 			dump.gameHappening = convertIntToBool(gameDataInput[12])
-
-		dump.coinToss = convertIntToBool(gameDataInput[13])
-		dump.tossDecision = convertIntToBool(gameDataInput[14])
-		currentGame = dump
-		sendGameValues(games)
-		await message.channel.send("Game edited")
-		return
-
+			dump.coinToss = convertIntToBool(gameDataInput[13])
+			dump.tossDecision = convertIntToBool(gameDataInput[14])
+			games[currentGameId2] = dump
+			sendGameValues(games)
+			await message.channel.send("Game edited")
+			return
+	currentGame = games[currentGameId]
 	if "end game" in message.content:
 		print("hi")
 		if isMod == True:
