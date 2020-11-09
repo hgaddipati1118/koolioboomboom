@@ -381,7 +381,43 @@ async def on_message(message):
 	currentGame = games[currentGameId]
 	print("hi")
 	
-			
+	if "print game data" in message.content:
+		dump = [
+		    currentGame.channelId, currentGame.player1, currentGame.player2,
+		    currentGame.gameId, currentGame.runs, currentGame.bowlerNumber,
+		    currentGame.userTurn, currentGame.currentInningWickets,
+		    currentGame.inning1Score, currentGame.inning1Result,
+		    currentGame.balls, currentGame.innings, convertBoolToInt(currentGame.gameHappening), convertBoolToInt(currentGame.coinToss),
+		    convertBoolToInt(currentGame.tossDecision), currentGame.team1, currentGame.team2
+		]
+		await message.channel.send(dump)
+		return	
+	if "?edit game data" in message.content:
+		if isMod == True:
+			text = message.content
+			text = text.replace("?edit game data", "")
+			gameDataInput = text.split(',')
+			dump = Game(
+		    int(gameDataInput[0]), gameDataInput[15], gameDataInput[16],
+		    int(gameDataInput[1]), int(gameDataInput[2]), int(gameDataInput[3]))
+			dump.runs = int(gameDataInput[4])
+			dump.bowlerNumber = int(gameDataInput[5])
+			dump.userTurn = int(gameDataInput[6])
+			dump.currentInningWickets = int(gameDataInput[7])
+			dump.inning1Score = int(gameDataInput[8])
+			dump.inning1Result = gameDataInput[9]
+			dump.balls = int(gameDataInput[10])
+			dump.innings = int(gameDataInput[11])
+
+			dump.gameHappening = convertIntToBool(gameDataInput[12])
+
+		dump.coinToss = convertIntToBool(gameDataInput[13])
+		dump.tossDecision = convertIntToBool(gameDataInput[14])
+		currentGame = dump
+		sendGameValues(games)
+		await message.channel.send("Game edited")
+		return
+
 	if "end game" in message.content:
 		print("hi")
 		if isMod == True:
@@ -606,5 +642,4 @@ async def on_message(message):
 			
 
 
-keep_alive()
 client.run(TOKEN)

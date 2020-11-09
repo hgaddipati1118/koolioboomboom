@@ -10,12 +10,12 @@ def makeTables():
   conn = sqlite3.connect('users.db')
   cursor = conn.cursor()
   Database = cursor.execute("SELECT teamName, userId FROM users").fetchall()
-  cursor.execute('DELETE FROM games;',);
+ 
   if(len(Database)>0):
     conn.commit()
     conn.close()
     return
- 
+  cursor.execute('DELETE FROM games;',);
   cursor.execute('DELETE FROM users;',);
   #cursor.execute("CREATE TABLE users (teamName TEXT, userId INTEGER)")
  # cursor.execute("CREATE TABLE games (channelId INTEGER, player1 INTEGER, player2 INTEGER, gameId INTEGER, runs INTEGER, bowlerNumber INTEGER, userTurn INTEGER, currentInningsWickets INTEGER, inning1Score INTEGER, inning1Result TEXT, balls INTEGER, innings INTEGER, gameHappening INTEGER, coinToss INTEGER, tossDecision INTEGER, team1 TEXT, team2 TEXT )")
