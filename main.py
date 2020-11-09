@@ -629,6 +629,7 @@ async def on_message(message):
 					currentGame.player1 = newPlayer1
 					currentGame.player2 = newPlayer2
 					currentGame.runs = 0
+					sendGameValues(games)
 			else:
 				if (currentGame.balls >= 60
 				    or currentGame.currentInningWickets >= 5
