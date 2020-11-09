@@ -352,12 +352,14 @@ async def on_message(message):
 		sendGameValues(games)
 		return
 	isInGame = False
-	currentGameId = -1
+	currentGameId5 = -1
 	for n in range(len(games)):
 		if (message.channel.id == games[n].channelId):
 			isInGame = True
-			currentGameId = n
-	currentGame = games[currentGameId]
+			currentGameId5 = n
+	print(currentGameId5)
+	print(len(games))
+	currentGame = games[currentGameId5]
 
 	if isInGame == True:
 		if "?waitingon" in message.content:
@@ -387,8 +389,11 @@ async def on_message(message):
 		print("hi")
 		if isMod == True:
 			currentGame.gameHappening = False
+			if(currentGameId5 == -1):
+				await message.channel.send("No game in progess")
+				return
 			await message.channel.send("Game Ended")
-			games.pop(currentGameId)
+			games.pop(currentGameId5)
 			sendGameValues(games)
 			return
 	if "print game data" in message.content:
@@ -628,8 +633,8 @@ async def on_message(message):
 					newPlayer1 = currentGame.player2
 					currentGame.player1 = newPlayer1
 					currentGame.player2 = newPlayer2
-					currentGame.runs = 0
 					sendGameValues(games)
+					currentGame.runs = 0
 			else:
 				if (currentGame.balls >= 60
 				    or currentGame.currentInningWickets >= 5
