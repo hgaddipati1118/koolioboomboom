@@ -383,7 +383,14 @@ async def on_message(message):
 
 	currentGame = games[currentGameId]
 	print("hi")
-	
+	if "end game" in message.content:
+		print("hi")
+		if isMod == True:
+			currentGame.gameHappening = False
+			await message.channel.send("Game Ended")
+			games.pop(currentGameId)
+			sendGameValues(games)
+			return
 	if "print game data" in message.content:
 		isInGame2 = False
 		currentGameId2 = -1
@@ -445,13 +452,7 @@ async def on_message(message):
 			await message.channel.send("Game edited")
 			return
 	currentGame = games[currentGameId]
-	if "end game" in message.content:
-		print("hi")
-		if isMod == True:
-			currentGame.gameHappening = False
-			await message.channel.send("Game Ended")
-			sendGameValues(games)
-			return
+
 	if currentGame.gameHappening == False:
 		return
 
