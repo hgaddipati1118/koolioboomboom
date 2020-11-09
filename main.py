@@ -52,7 +52,7 @@ class Game(object):
 
 
 #load_dotenv()
-#TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
 games = []
@@ -607,4 +607,4 @@ async def on_message(message):
 
 
 keep_alive()
-client.run("NzcxNTYxMTYzMzA4OTI0OTQw.X5t6VA.TUrPSWYNyfUo8QK5wz2TYjsB-8c")
+client.run(TOKEN)
