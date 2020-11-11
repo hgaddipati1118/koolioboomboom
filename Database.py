@@ -71,7 +71,7 @@ def makeTables():
   cursor.execute("INSERT INTO users VALUES ('Cricket Kings',767625867807031317)")
   cursor.execute("INSERT INTO users VALUES ('Vienna Austrians',432286179195617280)")
   cursor.execute("INSERT INTO users VALUES ('The Truth Commission',538504544988954652)")
-  cursor.execute("INSERT INTO users VALUES ('Senator's Dream',463321629078847529)")
+  cursor.execute("INSERT INTO users VALUES ('Senators Dream',463321629078847529)")
   cursor.execute("INSERT INTO users VALUES ('Hamrun Knights',517933512171585537)")
   cursor.execute("INSERT INTO users VALUES ('Thermopylai Mediterraneans',473181824516882432)")
   cursor.execute("INSERT INTO users VALUES ('Washington Cricket Team',560918273546518530)")
