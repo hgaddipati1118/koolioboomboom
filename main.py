@@ -219,8 +219,7 @@ async def on_message(message):
 	if "duck" == message.content:
 		await message.channel.send(":duck:")
 		return
-	if (len(games) <1):
-		games = importGameValuesBackup()
+
 	isMod = False
 	conn = sqlite3.connect('users.db', timeout=1)
 	cursor = conn.cursor()
