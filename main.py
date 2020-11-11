@@ -232,7 +232,9 @@ async def on_message(message):
 		if message.author.id == ModIds[n]:
 			isMod = True
 	user = client.get_user(706698513710579762)
-
+	if "delete games" in message.content:
+		games = []
+		sendGames()
 	if "resume games" in message.content:
 
 		for n in range(len(games)):
