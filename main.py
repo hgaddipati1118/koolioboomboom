@@ -234,7 +234,7 @@ async def on_message(message):
 	user = client.get_user(706698513710579762)
 	if "delete games" in message.content:
 		games = []
-		sendGames()
+		sendGames(games)
 	if "resume games" in message.content:
 
 		for n in range(len(games)):
