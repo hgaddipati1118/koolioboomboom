@@ -11,7 +11,7 @@ def makeTables():
   cursor = conn.cursor()
   Database = cursor.execute("SELECT teamName, userId FROM users").fetchall()
  
-  if(len(Database)>0):
+  if(len(Database)<2):
     cursor.execute('DELETE FROM games;',);
     conn.commit()
     conn.close()

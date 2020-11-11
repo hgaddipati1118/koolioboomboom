@@ -608,7 +608,7 @@ async def on_message(message):
 			                    currentGame.currentInningWickets)
 			currentScore += "\n" + "Run Rate:" + str(
 			    round(6 * runs / currentGame.balls, 2))
-			if (currentGame.innings == 2 and 59 > balls):
+			if (currentGame.innings == 2 and 60 > balls):
 				currentScore += "\n" + "Runs Needed:" + str(
 				    1 + currentGame.inning1Score - runs)
 				print(currentGame.balls)
