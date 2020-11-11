@@ -232,8 +232,10 @@ async def on_message(message):
 			isMod = True
 	user = client.get_user(706698513710579762)
 	if "delete games" in message.content:
+		await message.channel.send("games deleted")
 		games = []
-		sendGames(games)
+		sendGameValues(games)
+		return
 	if "resume games" in message.content:
 
 		for n in range(len(games)):
