@@ -4,7 +4,7 @@ import csv
 import random
 from Database import *
 from cricketWriteups import *
-from keep_alive import keep_alive
+
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
