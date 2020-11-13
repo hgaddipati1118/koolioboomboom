@@ -259,7 +259,7 @@ async def on_message(message):
 			isMod = True
 	if "Kill bot" in message.content:
 		if isMod == True:
-			client.logout()
+			await client.logout()
 	user = client.get_user(706698513710579762)
 	if "delete games" in message.content:
 		await message.channel.send("games deleted")
