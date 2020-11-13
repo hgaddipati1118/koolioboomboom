@@ -2,9 +2,10 @@
 import os
 import csv
 import random
+import ast
 from Database import *
 from cricketWriteups import *
-
+from keep_alive import keep_alive
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -75,6 +76,26 @@ def convertIntToBool(value):
 		return True
 	else:
 		return False
+
+def sendGameList(gameList):
+	games = gameList.copy()
+	dataDump = []
+	for n in range(len(games)):
+		specificGame = games[n]
+
+		gameHappening = convertBoolToInt(specificGame.gameHappening)
+		coinToss = convertBoolToInt(specificGame.coinToss)
+		tossDecision = convertBoolToInt(specificGame.tossDecision)
+		dump = [
+		    specificGame.channelId, specificGame.player1, specificGame.player2,
+		    specificGame.gameId, specificGame.runs, specificGame.bowlerNumber,
+		    specificGame.userTurn, specificGame.currentInningWickets,
+		    specificGame.inning1Score, specificGame.inning1Result,
+		    specificGame.balls, specificGame.innings, gameHappening, coinToss,
+		    tossDecision, specificGame.team1, specificGame.team2
+		]
+		dataDump.append(dump)
+	return dataDump
 
 
 def sendGameValues(games):
@@ -154,16 +175,9 @@ def importGameValues():
 	return games
 
 
-def importGameValuesBackup():
-	gameData = []
-	with open('games.csv') as csv_file:
-		csv_reader = csv.reader(csv_file, delimiter=',')
-
-		for row in csv_reader:
-			if (len(row) > 5):
-				gameData.append(row)
-
-	games = []
+def turnGamesListBack(games):
+	gameData = games.copy()
+	gameList = []
 	for n in range(len(gameData)):
 		currentGame = gameData[n]
 
@@ -183,9 +197,9 @@ def importGameValuesBackup():
 
 		dump.coinToss = convertIntToBool(currentGame[13])
 		dump.tossDecision = convertIntToBool(currentGame[14])
-		games.append(dump)
+		gameList.append(dump)
 
-	return games
+	return gameList
 
 
 @client.event
@@ -219,6 +233,19 @@ async def on_message(message):
 	if "duck" == message.content:
 		await message.channel.send(":duck:")
 		return
+	if message.author == client.user:
+		return
+	if(len(games)>0):
+		channel = client.get_channel(776503505157619722)
+		await channel.send(sendGameList(games))
+	if "?import game list" in message.content:
+		gameData = message.content.replace("?import game list","")
+		mylist = ast.literal_eval(gameData)
+		print(mylist)
+		games = turnGamesListBack(mylist)
+		sendGameValues(games)
+		await message.channel.send("Game List changed")
+		return
 
 	isMod = False
 	conn = sqlite3.connect('users.db', timeout=1)
@@ -230,6 +257,9 @@ async def on_message(message):
 	for n in range(len(ModIds)):
 		if message.author.id == ModIds[n]:
 			isMod = True
+	if "Kill bot" in message.content:
+		if isMod == True:
+			client.logout()
 	user = client.get_user(706698513710579762)
 	if "delete games" in message.content:
 		await message.channel.send("games deleted")
@@ -362,11 +392,18 @@ async def on_message(message):
 			currentGameId5 = n
 	print(currentGameId5)
 	print(len(games))
-	currentGame = games[currentGameId5]
+	if (currentGameId5 != -1):
+		currentGame = games[currentGameId5]
 
 	if isInGame == True:
 		if "?waitingon" in message.content:
-	
+			if currentGame.coinToss == 1:
+				output = "waiting on <@!" + str(currentGame.player1) + ">	to call heads or tails"
+				await message.channel.send(output)
+				return
+			if currentGame.tossDecision == 1:
+				output = "waiting on <@!" + str(currentGame.player1) + ">	to choose to bowl or bat"
+				await message.channel.send(output)
 			if currentGame.userTurn == 0:
 				output = "waiting on <@!" + str(currentGame.player2) + ">	to dm bot bowler number"
 				await message.channel.send(output)
@@ -384,9 +421,10 @@ async def on_message(message):
 			currentGameId = n
 	if currentGameId == -1:
 		print("No game")
+		return
 	
-
-	currentGame = games[currentGameId]
+	if currentGameId != -1:
+		currentGame = games[currentGameId]
 	print("hi")
 	if "end game" in message.content:
 		print("hi")
@@ -459,7 +497,8 @@ async def on_message(message):
 			sendGameValues(games)
 			await message.channel.send("Game edited")
 			return
-	currentGame = games[currentGameId]
+	if currentGameId != -1:
+		currentGame = games[currentGameId]
 
 	if currentGame.gameHappening == False:
 		return
@@ -611,7 +650,7 @@ async def on_message(message):
 			                    currentGame.currentInningWickets)
 			currentScore += "\n" + "Run Rate:" + str(
 			    round(6 * runs / currentGame.balls, 2))
-			if (currentGame.innings == 2 and 60 > balls):
+			if (currentGame.innings == 2 and 60 > currentGame.balls):
 				currentScore += "\n" + "Runs Needed:" + str(
 				    1 + currentGame.inning1Score - runs)
 				print(currentGame.balls)
@@ -623,8 +662,10 @@ async def on_message(message):
 			if (currentGame.innings == 1):
 				if (currentGame.balls >= 60
 				    or currentGame.currentInningWickets >= 5):
-					await message.channel.send("Innings is over, " +
-					                           str(runs) + " runs scored")
+					await message.channel.send("Innings is over, " +str(runs) + " runs scored")
+					user = client.get_user(currentGame.player2)
+					await user.send("Innings is over")
+		
 					currentGame.inning1Result = str(runs) + "/" + str(
 					    currentGame.currentInningWickets) + " (" + str(
 					        overs) + "." + str(balls) + ")"
@@ -646,10 +687,9 @@ async def on_message(message):
 					    currentGame.currentInningWickets) + " (" + str(
 					        overs) + "." + str(balls) + ")"
 					if (runs > currentGame.inning1Score):
-						await message.channel.send(
-						    currentGame.team2 + " wins by" +
-						    str(5 - currentGame.currentInningWickets) +
-						    " wickets")
+						await message.channel.send(currentGame.team2 + " wins by" + str(5 - currentGame.currentInningWickets) +" wickets")
+						user = client.get_user(currentGame.player2)
+						await user.send("Innings is over")
 						await message.channel.send(currentGame.team1 + ": " +
 						                           currentGame.inning1Result)
 						await message.channel.send(currentGame.team2 + ": " +
