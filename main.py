@@ -235,11 +235,15 @@ async def on_message(message):
 		return
 	if message.author == client.user:
 		return
+	if message.content == "kill bot":
+		await client.close()
+		return
 	if(len(games)>0):
 		channel = client.get_channel(776503505157619722)
 		await channel.send(sendGameList(games))
 	if "?import game list" in message.content:
 		gameData = message.content.replace("?import game list","")
+
 		mylist = ast.literal_eval(gameData)
 		print(mylist)
 		games = turnGamesListBack(mylist)
@@ -259,7 +263,7 @@ async def on_message(message):
 			isMod = True
 	if "Kill bot" in message.content:
 		if isMod == True:
-			await client.logout()
+			client.logout()
 	user = client.get_user(706698513710579762)
 	if "delete games" in message.content:
 		await message.channel.send("games deleted")
@@ -419,9 +423,7 @@ async def on_message(message):
 		    or message.author.id == games[n].player2):
 			isInGame = True
 			currentGameId = n
-	if currentGameId == -1:
-		print("No game")
-		return
+
 	
 	if currentGameId != -1:
 		currentGame = games[currentGameId]
@@ -440,7 +442,7 @@ async def on_message(message):
 	if "print game data" in message.content:
 		isInGame2 = False
 		currentGameId2 = -1
-
+		print (games)
 		for n in range(len(games)):
 			print(n)
 			print(games[n].channelId)
