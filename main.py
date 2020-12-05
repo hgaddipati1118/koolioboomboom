@@ -238,9 +238,23 @@ async def on_message(message):
 	if message.content == "kill bot":
 		await client.close()
 		return
-	if(len(games)>0):
+		if(len(games)>0):
 		channel = client.get_channel(776503505157619722)
-		await channel.send(sendGameList(games))
+		thingToPush = sendGameList(games)
+		stringOutput = "["
+		for n in range(len(thingToPush)):
+			stringOutput += "["
+        		for g in range(len(thingToPush[n])):
+				stringOutput += "["
+				stringOutput += thingToPush[n][g]
+				stringOutput += "]"
+				if g != (len(thingToPush[n])-1):
+						stringOutput += ","
+				stringOutput +="]"
+				if n != (len(thingToPush)-1):
+					stringOutput+=","
+			for n in range((len(stringOutput)/1000)+1):
+				await channel.send(stringOutput[(1000*(n)):(1000*(n+1))])
 	if "?import game list" in message.content:
 		gameData = message.content.replace("?import game list","")
 
