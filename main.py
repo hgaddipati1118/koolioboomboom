@@ -239,16 +239,16 @@ async def on_message(message):
 		await client.close()
 		return
 		if(len(games)>0):
-		channel = client.get_channel(776503505157619722)
-		thingToPush = sendGameList(games)
-		stringOutput = "["
-		for n in range(len(thingToPush)):
-			stringOutput += "["
-        		for g in range(len(thingToPush[n])):
+			channel = client.get_channel(776503505157619722)
+			thingToPush = sendGameList(games)
+			stringOutput = "["
+			for n in range(len(thingToPush)):
 				stringOutput += "["
-				stringOutput += thingToPush[n][g]
-				stringOutput += "]"
-				if g != (len(thingToPush[n])-1):
+        			for g in range(len(thingToPush[n])):
+					stringOutput += "["
+					stringOutput += thingToPush[n][g]
+					stringOutput += "]"
+					if g != (len(thingToPush[n])-1):
 						stringOutput += ","
 				stringOutput +="]"
 				if n != (len(thingToPush)-1):
