@@ -244,7 +244,7 @@ async def on_message(message):
 			stringOutput = "["
 			for n in range(len(thingToPush)):
 				stringOutput += "["
-        			for g in range(len(thingToPush[n])):
+				for g in range(len(thingToPush[n])):
 					stringOutput += "["
 					stringOutput += thingToPush[n][g]
 					stringOutput += "]"
