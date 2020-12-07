@@ -238,23 +238,28 @@ async def on_message(message):
 	if message.content == "kill bot":
 		await client.close()
 		return
-		if(len(games)>0):
+
+	if(len(games)>0):
 			channel = client.get_channel(776503505157619722)
 			thingToPush = sendGameList(games)
 			stringOutput = "["
 			for n in range(len(thingToPush)):
 				stringOutput += "["
 				for g in range(len(thingToPush[n])):
-					stringOutput += "["
-					stringOutput += thingToPush[n][g]
-					stringOutput += "]"
+					stringOutput += str(thingToPush[n][g])
 					if g != (len(thingToPush[n])-1):
 						stringOutput += ","
 				stringOutput +="]"
 				if n != (len(thingToPush)-1):
 					stringOutput+=","
-			for n in range((len(stringOutput)/1000)+1):
-				await channel.send(stringOutput[(1000*(n)):(1000*(n+1))])
+			stringOutput +="]"
+			print(stringOutput)
+			for n in range(int(len(stringOutput)/1000)+1):
+				start = n*1000
+				end = (n+1)*1000
+				if(end>len(stringOutput)):
+					end = len(stringOutput)
+				await channel.send(stringOutput[start:end])
 	if "?import game list" in message.content:
 		gameData = message.content.replace("?import game list","")
 
@@ -442,7 +447,7 @@ async def on_message(message):
 	if currentGameId != -1:
 		currentGame = games[currentGameId]
 	print("hi")
-	if "end game" in message.content:
+	if "end game" == message.content:
 		print("hi")
 		if isMod == True:
 			currentGame.gameHappening = False
@@ -584,8 +589,7 @@ async def on_message(message):
 			await message.channel.send("please choose to bowl or bat")
 			return
 		return
-	if currentGame.userTurn == 0 and isinstance(message.channel,
-	                                            discord.DMChannel):
+	if currentGame.userTurn == 0 and isinstance(message.channel,discord.DMChannel):
 		if message.content.isnumeric():
 			if int(message.content) > 50 or int(message.content) < 1:
 				await message.channel.send("Put a number 1-50")
