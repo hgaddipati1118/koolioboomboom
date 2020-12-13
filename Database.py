@@ -41,7 +41,7 @@ def makeTables():
   cursor.execute("INSERT INTO users VALUES ('C0ldspark',195544830481268736)")
   cursor.execute("INSERT INTO users VALUES ('Calypso Kings',716465822020665405)")
   cursor.execute("INSERT INTO users VALUES ('New Delhi Superstars',306609698340339714)")
-  cursor.execute("INSERT INTO users VALUES ('KBK Stallions',715094998617686036)")
+  cursor.execute("INSERT INTO users VALUES ('KBK Stallions',670980759275962378)")
   cursor.execute("INSERT INTO users VALUES ('schizo d dharms',532472438718464001)")
   cursor.execute("INSERT INTO users VALUES ('Sydney Sixers',105545186028822528)")
   cursor.execute("INSERT INTO users VALUES ('Tajikistan Royals',352849361920851968)")
@@ -72,10 +72,24 @@ def makeTables():
   cursor.execute("INSERT INTO users VALUES ('The Truth Commission',538504544988954652)")
   cursor.execute("INSERT INTO users VALUES ('Senators Dream',463321629078847529)")
   cursor.execute("INSERT INTO users VALUES ('Hamrun Knights',517933512171585537)")
-  cursor.execute("INSERT INTO users VALUES ('Thermopylai Mediterraneans',473181824516882432)")
+  cursor.execute("INSERT INTO users VALUES ('Thermopylae Mediterraneans',473181824516882432)")
   cursor.execute("INSERT INTO users VALUES ('Washington Cricket Team',560918273546518530)")
   cursor.execute("INSERT INTO users VALUES ('Austin Bats',129120653948223488)")
   cursor.execute("INSERT INTO users VALUES ('Rotterdam Rhinos',244161099337957376)")
+  cursor.execute("INSERT INTO users VALUES ('Tikka Bomb Indians',530072906353344542)")
+  cursor.execute("INSERT INTO users VALUES ('Cyber Pearls Hyderabad',616784046734835752)")
+  cursor.execute("INSERT INTO users VALUES ('CricBuzzers',668763710046732289)")
+  cursor.execute("INSERT INTO users VALUES ('Daredevils',747500674325151845)")
+  cursor.execute("INSERT INTO users VALUES ('Wollongong Warriors',205443196401090561)")
+  cursor.execute("INSERT INTO users VALUES ('Canada',524251268437245952)")
+  cursor.execute("INSERT INTO users VALUES ('Depressed Wankers',670890203707211808)")
+  cursor.execute("INSERT INTO users VALUES ('RCB',712732591177990228)")
+  cursor.execute("INSERT INTO users VALUES ('Fightbackers',413995263192203265)")
+  cursor.execute("INSERT INTO users VALUES ('Chasing Mavericks',467236639253463062)")
+  cursor.execute("INSERT INTO users VALUES ('Saitama 11',743033969552916510)")
+  cursor.execute("INSERT INTO users VALUES ('Mangudai',531823613758668800)")
+  cursor.execute("INSERT INTO users VALUES ('Bruno The GSD Sports',705771752730394635)")
+  cursor.execute("INSERT INTO users VALUES ('Team Solid',604254595593666582)")
   # END CUT AND PASTE HERE
   Database = cursor.execute("SELECT teamName, userId FROM users").fetchall()
   print(len(Database))
@@ -83,4 +97,4 @@ def makeTables():
   conn.close()
  
 
-ModIds = [340541260672532482,706698513710579762,701221250776825856,202273074261917697,477216596667006996,534010044182822914,636749752683200523]
+ModIds = [391151653358665728,409350943788892160,256431620729470976,202273074261917697,534010044182822914,706698513710579762,477216596667006996,340541260672532482,715243714003337296,473181824516882432]
