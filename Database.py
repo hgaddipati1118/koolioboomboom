@@ -90,6 +90,8 @@ def makeTables():
   cursor.execute("INSERT INTO users VALUES ('Mangudai',531823613758668800)")
   cursor.execute("INSERT INTO users VALUES ('Bruno The GSD Sports',705771752730394635)")
   cursor.execute("INSERT INTO users VALUES ('Team Solid',604254595593666582)")
+  cursor.execute("INSERT INTO users VALUES ('Rockstar Champions',686558605998161951)")
+  cursor.execute("INSERT INTO users VALUES ('San Jose Nuggets',733552144505897020)")
   # END CUT AND PASTE HERE
   Database = cursor.execute("SELECT teamName, userId FROM users").fetchall()
   print(len(Database))
