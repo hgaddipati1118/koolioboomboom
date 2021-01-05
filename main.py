@@ -180,13 +180,15 @@ def turnGamesListBack(games):
 	gameList = []
 	for n in range(len(gameData)):
 		currentGame = gameData[n]
-
+		print (currentGame)
 		dump = Game(
 		    int(currentGame[0]), currentGame[15], currentGame[16],
 		    int(currentGame[1]), int(currentGame[2]), int(currentGame[3]))
 		dump.runs = int(currentGame[4])
 		dump.bowlerNumber = int(currentGame[5])
 		dump.userTurn = int(currentGame[6])
+		if(currentGame[7] == ''):
+			currentGame[7] = 0
 		dump.currentInningWickets = int(currentGame[7])
 		dump.inning1Score = int(currentGame[8])
 		dump.inning1Result = currentGame[9]
@@ -291,6 +293,9 @@ async def on_message(message):
 		games = []
 		sendGameValues(games)
 		return
+	if "badoom" in message.content:
+		games = [['775439156728823860','432286179195617280','477216596667006996','0','5','31','0','0','0','','4','1','1','0','0','Vienna Austrians','Arizona Scorpions'],['775439173057511434','256431620729470976','202273074261917697','1','17','13','0','1','0','','7','1','1','0','0','North Sydney Bears','Chesire'],['775439257053429760','500805562376650758','129120653948223488','4','43','6','1','2','0','','38','1','1','0','0','Honolulu Hornets','Austin Bats'],['775439300765679686','105545186028822528','517933512171585537','7','15','6','1','0','0','','14','1','1','0','0',' Sydney Sixers',' Hamrun Knights'],['775439325714317363','530072906353344542','280100750523236352','8','0','0','0','0','0','','0','1','1','1','1','Tikka Bomb Indians','San Antonio Cricket Club'],['775439338582179841','706698513710579762','340541260672532482','9','40','9','0','3','56',' 56/5 (7.6)','23','2','1','0','0','Omaha Union',' Sunrisers Hyderabad'],['775439370744234004','391151653358665728','244161099337957376','11','54','46','0','2','0','','38','1','1','0','0','Brisbane Heat','Rotterdam Rhinos'],['775439413550514226','293778672807182336','693027263062474782','12','0','4','1','0','0','','0','1','1','0','0','Pakistani Falcons','Mornington Wombats'],['775439455687409746','501849193338503168','309625595854323712','15','4','22','1','1','0','','3','1','1','0','0','Flipping Flyers','Royal Rumblers'],['792392533858713612','604254595593666582','616784046734835752','16','0','0','0','0','0','','0','1','1','0','1','Team Solid','Cyber Pearls Hyderabad'],['792392561771020298','733552144505897020','524251268437245952','17','1','10','0','0','0','','1','1','1','0','0','San Jose Nuggets','Canada'],['792392593886412800','743033969552916510','531823613758668800','18','0','0','0','','0','','0','1','1','0','1','Saitama 11','Mangudai'],['792392620130959390','686558605998161951','712732591177990228','19','0','0','0','0','0','','0','1','1','1','1','Rockstar Champions','RCB'],['775439216891920415','144969605977341953','327486880394510356','16','14','41','0','0','0','','9','1','1','0','0','Red Star Laos','Dallas Thunder'],['775439352712790028','715243714003337296','398339792930340884','17','0','0','0','0','0','','0','1','1','0','0','Super 11','Eastern Ents'],['775439441380507648','495544574358323200','205443196401090561','19','0','0','0','0','0','','0','1','1','0','1','Sri Lanka Hurricanes','Wollongong Warriors']]
+		sendGameValues(turnGamesListBack(games))
 	if "resume games" in message.content:
 
 		for n in range(len(games)):
@@ -741,4 +746,4 @@ async def on_message(message):
 			
 
 
-client.run(TOKEN)
+client.run("NzcxNTYxMTYzMzA4OTI0OTQw.X5t6VA.TvO_mM0j3XIvTmF4eXbjIuS6Zpw")
