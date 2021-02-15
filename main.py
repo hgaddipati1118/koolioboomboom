@@ -740,7 +740,8 @@ async def on_message(message):
 			print(currentGame.player2)
 			sendGameValues(games)
 			await channel.send(output)
-			output = "<@!" + str(currentGame.player2) + ">,please dm bot bowler number"
+			output = "<@!" + str(currentGame.player2) + ">,please dm bot bowler number>"
+			await channel.send(output)
 			print(user)
 			print(user == "none")
 		 
