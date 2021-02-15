@@ -610,6 +610,7 @@ async def on_message(message):
 		output = "<@!" + str(
 		    currentGame.player1) + ">,please input Swing Number"
 		await channel.send(output)
+		await message.channel.send("Your number "+ message.content+ " has been submitted")
 		currentGame.userTurn = 1
 		sendGameValues(games)
 		return
@@ -738,12 +739,14 @@ async def on_message(message):
 			user = client.get_user(currentGame.player2)
 			print(currentGame.player2)
 			sendGameValues(games)
+			await channel.send(output)
 			output = "<@!" + str(currentGame.player2) + ">,please dm bot bowler number"
 			print(user)
 			print(user == "none")
-		 # await channel.send(output)
+		 
 			await user.send(currentScore)
 			await user.send("Put in bowler number")
+			
 			
 
 
