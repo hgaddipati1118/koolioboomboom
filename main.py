@@ -734,14 +734,14 @@ async def on_message(message):
 						                           innings2Result)
 					currentGame.gameHappening = False
 					sendGameValues(games)
+					output = "<@!" + str(currentGame.player2) + ">,please dm bot bowler number>"
+					await channel.send(output)
 					return
 
 			user = client.get_user(currentGame.player2)
 			print(currentGame.player2)
 			sendGameValues(games)
-			await channel.send(output)
-			output = "<@!" + str(currentGame.player2) + ">,please dm bot bowler number>"
-			await channel.send(output)
+			#await channel.send(output)
 			print(user)
 			print(user == "none")
 		 
